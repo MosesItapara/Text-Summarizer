@@ -2,7 +2,7 @@ from src.textsummarizer.logging import logger
 from src.textsummarizer.pipeline.stage_1_data_ingestion_pipeline import DataIngestionPipeline
 from src.textsummarizer.pipeline.stage_2_data_transformation_pipeline import DataTransformationPipeline
 from src.textsummarizer.pipeline.stage_3_model_trainer_pipeline import ModelTrainerTrainingPipeline
-
+from src.textsummarizer.pipeline.stage_4_model_evaluation_pipeline import ModelEvaluationTrainingPipeline
 
 STAGE_NAME = "Data Ingestion Stage"
 
@@ -24,3 +24,10 @@ if __name__ == "__main__":
     logger.info(f"Starting {STAGE_NAME}...")
     pipeline = ModelTrainerTrainingPipeline()
     pipeline.initiate_model_trainer()
+
+STAGE_NAME = "Model Evaluation Stage"
+
+if __name__ == "__main__":
+    logger.info(f"Starting {STAGE_NAME}...")
+    pipeline = ModelEvaluationTrainingPipeline()
+    pipeline.initiate_model_evaluation()

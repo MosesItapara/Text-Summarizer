@@ -1,4 +1,4 @@
-from src.textsummarizer.entity import DataIngestionConfig, DataTransformationConfig, ModelTrainerConfig
+from src.textsummarizer.entity import DataIngestionConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvaluationConfig
 from src.textsummarizer.utils.common import read_yaml, create_directories
 from src.textsummarizer.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from pathlib import Path
@@ -57,5 +57,24 @@ class ConfigurationManager:
             eval_steps=params.eval_steps,
             save_steps=params.save_steps,
             gradient_accumulation_steps=params.gradient_accumulation_steps
+        )
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        cfg = self.config.artifacts.model_evaluation
+        trainer_cfg = self.config.artifacts.model_trainer
+        ing = self.config.artifacts.data_ingestion
+        params = self.params.model_evaluation
+        os.makedirs(cfg.root_dir, exist_ok=True)
+        return ModelEvaluationConfig(
+            root_dir=Path(cfg.root_dir),
+            model_path=Path(trainer_cfg.root_dir) / 'pegasus-samsum-model',
+            tokenizer_path=Path(trainer_cfg.root_dir) / 'tokenizer',
+            ingested_test_dir=Path(ing.ingested_terst_dir),
+            input_column=params.input_column,
+            target_column=params.target_column,
+            batch_size=params.batch_size,
+            max_generate_length=params.max_generate_length,
+            num_beams=params.num_beams,
+            metric_file_name=cfg.metric_file_name,
         )
     

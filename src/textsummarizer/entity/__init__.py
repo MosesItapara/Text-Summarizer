@@ -34,4 +34,17 @@ class ModelTrainerConfig:
     save_steps: int
     gradient_accumulation_steps: int
 
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    model_path: Path
+    tokenizer_path: Path
+    ingested_test_dir: Path
+    input_column: str
+    target_column: str
+    batch_size: int
+    max_generate_length: int
+    num_beams: int
+    metric_file_name: str
+
 
