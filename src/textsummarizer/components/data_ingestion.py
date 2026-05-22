@@ -8,7 +8,10 @@ class DataIngestion:
 
     def download_and_save(self):
         dataset = load_dataset(self.config.dataset_name)
-        dataset["train"].to_csv(self.config.ingested_train_dir)
-        dataset["test"].to_csv(self.config.ingested_test_dir)
-        print(f"Train: {len(dataset['train'])} records")
-        print(f"Test: {len(dataset['test'])} records")
+
+        # Save as Arrow format — NOT csv
+        dataset['train'].save_to_disk(str(self.config.ingested_train_dir))
+        dataset['test'].save_to_disk(str(self.config.ingested_test_dir))
+
+        logger.info(f"Train: {len(dataset['train'])} | Test: {len(dataset['test'])}")
+        return dataset

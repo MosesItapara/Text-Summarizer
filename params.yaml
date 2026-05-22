@@ -1,1 +1,5 @@
-key: "value"
+data_transformation:
+  input_column: "dialogue"
+  target_column: "summary"
+  max_input_length: 512
+  max_target_length: 128
