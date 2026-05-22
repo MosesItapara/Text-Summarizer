@@ -1,0 +1,8 @@
+artifacts_root: artifacts
+artifacts:
+  data_ingestion:
+    root_dir: artifacts/data_ingestion
+    ingested_train_dir: artifacts/data_ingestion/ingested_train
+    ingested_test_dir: artifacts/data_ingestion/ingested_test
+    dataset_name: "knkarthick/samsum"
+
