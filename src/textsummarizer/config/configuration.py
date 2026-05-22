@@ -1,4 +1,4 @@
-from src.textsummarizer.entity import DataIngestionConfig, DataTransformationConfig
+from src.textsummarizer.entity import DataIngestionConfig, DataTransformationConfig, ModelTrainerConfig
 from src.textsummarizer.utils.common import read_yaml, create_directories
 from src.textsummarizer.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH
 from pathlib import Path
@@ -36,4 +36,26 @@ class ConfigurationManager:
             max_input_length=params.max_input_length,
             max_target_length=params.max_target_length,
          )
+    
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        cfg = self.config.artifacts.model_trainer
+        trans = self.config.artifacts.data_transformation
+        params = self.params.model_trainer
+        os.makedirs(cfg.root_dir, exist_ok=True)
+        return ModelTrainerConfig(
+            root_dir=Path(cfg.root_dir),
+            transformed_train_dir=Path(trans.root_dir) / 'transformed_train',
+            transformed_test_dir=Path(trans.root_dir) / 'transformed_test',
+            model_name=params.model_name,
+            num_train_epochs=params.num_train_epochs,
+            warmup_steps=params.warmup_steps,
+            per_device_train_batch_size=params.per_device_train_batch_size,
+            per_device_eval_batch_size=params.per_device_eval_batch_size,
+            weight_decay=params.weight_decay,
+            logging_steps=params.logging_steps,
+            evaluation_strategy=params.evaluation_strategy,
+            eval_steps=params.eval_steps,
+            save_steps=params.save_steps,
+            gradient_accumulation_steps=params.gradient_accumulation_steps
+        )
     
