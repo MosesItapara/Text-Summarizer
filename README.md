@@ -137,7 +137,7 @@ model_evaluation:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/Text-Summarizer.git
+git clone https://github.com/MosesItapara/Text-Summarizer.git
 cd Text-Summarizer
 ```
 
